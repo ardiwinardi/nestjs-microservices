@@ -14,7 +14,20 @@
     "skipLibCheck": true,
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
-    "paths": {}
+    "paths": {
+      "@nestjs-microservices/auth/*": ["apps/auth-service/src/app/*"],
+      "@nestjs-microservices/shared/dto": ["libs/shared/src/lib/dtos"],
+      "@nestjs-microservices/shared/module": ["libs/shared/src/lib/modules"],
+      "@nestjs-microservices/shared/pipe": ["libs/shared/src/lib/pipes"],
+      "@nestjs-microservices/shared/schema": ["libs/shared/src/lib/schemas"],
+      "@nestjs-microservices/shared/entity": ["libs/shared/src/lib/entities"],
+      "@nestjs-microservices/shared/constant": [
+        "libs/shared/src/lib/constants"
+      ],
+      "@nestjs-microservices/shared/interceptor": [
+        "libs/shared/src/lib/interceptors"
+      ]
+    }
   },
   "exclude": ["node_modules", "tmp"]
 }
