@@ -1,9 +1,10 @@
 import { CreateUserDto, UpdateUserDto } from '@nestjs-microservices/shared/dto';
-import { HttpException, Injectable, NotFoundException } from '@nestjs/common';
+import { User } from '@nestjs-microservices/shared/schema';
+import { HttpException, Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from 'bcrypt';
 import { Model } from 'mongoose';
-import { User } from './schemas/user.schema';
 
 @Injectable()
 export class AppService {
@@ -43,13 +44,13 @@ export class AppService {
     const item = await this.userModel.findByIdAndUpdate(id, {
       username: updateUserDto.username,
     });
-    if (!item) throw new NotFoundException();
+    if (!item) throw new RpcException('Not Found');
     return item;
   }
 
   async remove(id: string) {
     const item = await this.userModel.findByIdAndRemove(id);
-    if (!item) throw new NotFoundException();
+    if (!item) throw new RpcException('Not Found');
     return item;
   }
 }

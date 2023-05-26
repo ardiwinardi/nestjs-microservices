@@ -1,0 +1,64 @@
+{
+  "name": "purchase-order-service",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "apps/purchase-order-service/src",
+  "projectType": "application",
+  "targets": {
+    "build": {
+      "executor": "@nx/webpack:webpack",
+      "outputs": ["{options.outputPath}"],
+      "defaultConfiguration": "production",
+      "options": {
+        "target": "node",
+        "compiler": "tsc",
+        "outputPath": "dist/apps/purchase-order-service",
+        "main": "apps/purchase-order-service/src/main.ts",
+        "tsConfig": "apps/purchase-order-service/tsconfig.app.json",
+        "assets": ["apps/purchase-order-service/src/assets"],
+        "isolatedConfig": true,
+        "webpackConfig": "apps/purchase-order-service/webpack.config.js"
+      },
+      "configurations": {
+        "development": {},
+        "production": {}
+      }
+    },
+    "serve": {
+      "executor": "@nx/js:node",
+      "defaultConfiguration": "development",
+      "options": {
+        "buildTarget": "purchase-order-service:build"
+      },
+      "configurations": {
+        "development": {
+          "buildTarget": "purchase-order-service:build:development"
+        },
+        "production": {
+          "buildTarget": "purchase-order-service:build:production"
+        }
+      }
+    },
+    "lint": {
+      "executor": "@nx/linter:eslint",
+      "outputs": ["{options.outputFile}"],
+      "options": {
+        "lintFilePatterns": ["apps/purchase-order-service/**/*.ts"]
+      }
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/purchase-order-service/jest.config.ts",
+        "passWithNoTests": true
+      },
+      "configurations": {
+        "ci": {
+          "ci": true,
+          "codeCoverage": true
+        }
+      }
+    }
+  },
+  "tags": []
+}

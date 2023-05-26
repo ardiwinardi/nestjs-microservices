@@ -9,11 +9,11 @@ export class AuthService {
   constructor(@Inject('AUTH_SERVICE') private client: ClientProxy) {}
 
   async validateUser(loginDto: LoginDto): Promise<User> {
-    const userObservable = this.client.send('validateUser', loginDto);
+    const userObservable = this.client.send('auth.validateUser', loginDto);
     return await firstValueFrom(userObservable);
   }
 
   login(user: User) {
-    return this.client.send('login', user);
+    return this.client.send('auth.login', user);
   }
 }

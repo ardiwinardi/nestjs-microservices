@@ -13,30 +13,30 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('createProduct')
+  @MessagePattern('product.create')
   create(@Payload() createProductDto: CreateProductDto) {
     return this.appService.create(createProductDto);
   }
 
-  @MessagePattern('getProducts')
+  @MessagePattern('product.findAll')
   findAll(@Payload() pageOptionsDto: PageOptionsDto) {
     return this.appService.findAll(pageOptionsDto);
   }
 
-  @MessagePattern('getProductById')
+  @MessagePattern('product.findOne')
   findOne(@Payload('id', ParseObjectIdPipe) id: string) {
     return this.appService.findOne(id);
   }
 
-  @MessagePattern('updateProduct')
+  @MessagePattern('product.update')
   update(
-    @Payload('id', ParseObjectIdPipe) id: string,
-    @Payload() updateProductDto: UpdateProductDto
+    @Payload()
+    { id, updateProductDto }: { id: string; updateProductDto: UpdateProductDto }
   ) {
     return this.appService.update(id, updateProductDto);
   }
 
-  @MessagePattern('deleteProduct')
+  @MessagePattern('product.remove')
   remove(@Payload('id', ParseObjectIdPipe) id: string) {
     return this.appService.remove(id);
   }

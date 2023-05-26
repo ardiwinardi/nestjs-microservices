@@ -9,12 +9,12 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('validateUser')
+  @MessagePattern('auth.validateUser')
   handleValidateUser(@Payload() loginDto: LoginDto) {
     return this.appService.validateUser(loginDto);
   }
 
-  @MessagePattern('login')
+  @MessagePattern('auth.login')
   handleLogin(@Payload() user: User) {
     return this.appService.login(user);
   }

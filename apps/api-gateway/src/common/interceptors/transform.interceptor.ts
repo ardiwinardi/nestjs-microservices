@@ -24,7 +24,7 @@ export class TransformInterceptor implements NestInterceptor {
   ): Observable<Response> {
     return next.handle().pipe(
       map((data) => {
-        if (data.meta) {
+        if (data?.meta) {
           const dataWithMeta: any = plainToInstance(this.dto, data);
           return {
             statusCode: context.switchToHttp().getResponse().statusCode,

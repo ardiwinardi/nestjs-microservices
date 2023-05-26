@@ -9,6 +9,7 @@
   "exclude": ["jest.config.ts", "src/**/*.spec.ts", "src/**/*.test.ts"],
   "include": [
     "src/**/*.ts",
-    "../../apps/auth-service/src/app/entities/user.entity.ts"
+    "../../apps/auth-service/src/app/entities/user.entity.ts",
+    "../../apps/purchase-order-service/src/app/dtos/find-one-purchase-order.dto.ts"
   ]
 }

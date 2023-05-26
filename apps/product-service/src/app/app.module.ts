@@ -1,10 +1,10 @@
 import { DatabaseModule } from '@nestjs-microservices/shared/module';
 import { Module } from '@nestjs/common';
 
+import { Product, ProductSchema } from '@nestjs-microservices/shared/schema';
 import { MongooseModule } from '@nestjs/mongoose';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { Product, ProductSchema } from './schemas/product.schema';
 
 @Module({
   imports: [

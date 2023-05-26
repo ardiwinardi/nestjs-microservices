@@ -9,27 +9,27 @@ import { AppService } from './app.service';
 export class AppController {
   constructor(private readonly appService: AppService) {}
 
-  @MessagePattern('createUser')
+  @MessagePattern('user.create')
   create(@Payload() createUserDto: CreateUserDto) {
     return this.appService.create(createUserDto);
   }
 
-  @MessagePattern('getUsers')
+  @MessagePattern('user.findAll')
   findAll() {
     return this.appService.findAll();
   }
 
-  @MessagePattern('getUserById')
+  @MessagePattern('user.findOne')
   findOne(@Payload('id', ParseObjectIdPipe) id: string) {
     return this.appService.findOne(id);
   }
 
-  @MessagePattern('getUserByUsername')
+  @MessagePattern('user.findByUsername')
   async findByUsername(@Payload('username') username: string) {
     return await this.appService.findByUsername(username);
   }
 
-  @MessagePattern('updateUser')
+  @MessagePattern('user.update')
   update(
     @Payload('id', ParseObjectIdPipe) id: string,
     @Payload() updateUserDto: UpdateUserDto
@@ -37,7 +37,7 @@ export class AppController {
     return this.appService.update(id, updateUserDto);
   }
 
-  @MessagePattern('deleteUser')
+  @MessagePattern('user.remove')
   remove(@Payload('id', ParseObjectIdPipe) id: string) {
     return this.appService.remove(id);
   }

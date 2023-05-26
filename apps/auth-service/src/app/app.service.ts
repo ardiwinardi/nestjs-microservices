@@ -14,7 +14,7 @@ export class AppService {
 
   async validateUser(loginDto: LoginDto) {
     const { username, password } = loginDto;
-    const userObservable = this.client.send<User>('getUserByUsername', {
+    const userObservable = this.client.send<User>('user.findByUsername', {
       username,
     });
 

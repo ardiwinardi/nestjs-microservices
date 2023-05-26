@@ -5,10 +5,11 @@ import {
   UpdateProductDto,
 } from '@nestjs-microservices/shared/dto';
 import { PageEntity } from '@nestjs-microservices/shared/entity';
-import { Injectable, NotFoundException } from '@nestjs/common';
+import { Product } from '@nestjs-microservices/shared/schema';
+import { Injectable } from '@nestjs/common';
+import { RpcException } from '@nestjs/microservices';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { Product } from './schemas/product.schema';
 
 @Injectable()
 export class AppService {
@@ -45,8 +46,10 @@ export class AppService {
     });
   }
 
-  findOne(id: string) {
-    return this.productModel.findById(id).exec();
+  async findOne(id: string) {
+    const item = await this.productModel.findById(id).exec();
+    if (!item) throw new RpcException('Product Not Found');
+    return item;
   }
 
   async update(id: string, updateProductDto: UpdateProductDto) {
@@ -56,13 +59,13 @@ export class AppService {
       stock: updateProductDto.stock,
     });
 
-    if (!item) throw new NotFoundException();
+    if (!item) throw new RpcException('Product Not Found');
     return item;
   }
 
   async remove(id: string) {
     const item = await this.productModel.findByIdAndRemove(id);
-    if (!item) throw new NotFoundException();
+    if (!item) throw new RpcException('Product Not Found');
     return item;
   }
 }
